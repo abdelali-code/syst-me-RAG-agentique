@@ -20,7 +20,7 @@ Complete guide for setting up and running the Prompt Engineering and LangChain A
 
 ## 🎯 Project Overview
 
-This project contains two comprehensive lab notebooks:
+This project contains **6 comprehensive lab notebooks** - a complete Master SDIA curriculum:
 
 1. **TP_Prompt_Engineering.ipynb** - Prompt Engineering fundamentals
    - Tokenization with Tiktoken
@@ -34,6 +34,33 @@ This project contains two comprehensive lab notebooks:
    - Custom tools and web search
    - Memory management
    - Practical TP: Personal Chef Agent
+
+3. **TP_RAG_Agent.ipynb** - Retrieval-Augmented Generation
+   - PDF content extraction and embedding
+   - Vector store indexing and semantic search
+   - SQL database agents with natural language
+   - Hybrid RAG systems
+
+4. **TP_MCP_Agent.ipynb** - Model Context Protocol (MCP)
+   - Local MCP servers with custom tools
+   - Pre-built MCP servers (Time, Weather, etc.)
+   - Remote HTTP-based MCP services
+   - Multi-server MCP architectures
+
+5. **TP_LangGraph_Studio.ipynb** - Visualization & Debugging
+   - LangSmith account setup and API keys
+   - Create LangGraph-compatible agents
+   - langgraph.json configuration
+   - Visual debugging interface
+   - Step-by-step execution and inspection
+
+6. **TP_Agent_State_Context.ipynb** - State & Context Management
+   - Structured context classes with @dataclass
+   - Agent context access via ToolRuntime
+   - Custom state with AgentState inheritance
+   - State modification with Command()
+   - Persistent state with checkpointer
+   - Multi-user sessions with thread_id
 
 ---
 
@@ -511,24 +538,84 @@ langchainPrompt/
 │   ├── Memory management
 │   └── Practical TP: Personal Chef Agent
 │
-└── TP_RAG_Agent.ipynb                     # Lab 3: RAG & SQL Agents
-    ├── Part 1: PDF RAG
-    │   ├── PDF Loading with PyPDFLoader
-    │   ├── Text Segmentation
-    │   ├── Embedding Generation
-    │   ├── Vector Store Indexing
-    │   ├── Semantic Search
-    │   └── RAG Agent Creation
+├── TP_RAG_Agent.ipynb                     # Lab 3: RAG & SQL Agents
+│   ├── Part 1: PDF RAG
+│   │   ├── PDF Loading with PyPDFLoader
+│   │   ├── Text Segmentation
+│   │   ├── Embedding Generation
+│   │   ├── Vector Store Indexing
+│   │   ├── Semantic Search
+│   │   └── RAG Agent Creation
+│   │
+│   └── Part 2: SQL Agent
+│       ├── SQLite Connection
+│       ├── Custom SQL Tools
+│       ├── SQL Agent Creation
+│       └── Natural Language Querying
+│
+├── TP_MCP_Agent.ipynb                     # Lab 4: Model Context Protocol (MCP)
+│   ├── Part 1: Local MCP Server
+│   │   ├── Custom stdio server
+│   │   ├── Dynamic tool retrieval
+│   │   ├── Resources and prompts
+│   │   └── Modular LLM agent
+│   │
+│   ├── Part 2: Time MCP Server
+│   │   ├── Timezone configuration
+│   │   ├── Time-specific tools
+│   │   └── Time zone agent
+│   │
+│   ├── Part 3: Remote HTTP MCP Server
+│   │   ├── HTTP streaming connection
+│   │   ├── External API integration
+│   │   └── Travel/Flight agent
+│   │
+│   └── Multi-server MCP agent
+│       └── Combining local + distant servers
+│
+├── TP_LangGraph_Studio.ipynb              # Lab 5: Visualization & Debugging
+│   ├── Part 1: Account & API Key Setup
+│   ├── Part 2: Create LangGraph Agents
+│   ├── Part 3: Configuration File
+│   ├── Part 4: Installation & Launch
+│   └── Features:
+│       ├── Visual graph editor
+│       ├── Step-by-step execution
+│       ├── Tool inspection
+│       └── Production deployment
+│
+└── TP_Agent_State_Context.ipynb           # Lab 6: State & Context Management
+    ├── Part 1: Structured Context
+    ├── Part 2: Agent without Context
+    ├── Part 3: Agent with Context
+    ├── Part 4: Changing Context
+    ├── Part 5: Custom State (AgentState)
+    ├── Part 6: Modifying State
+    └── Part 7: Reading State
+    ├── Part 1: Local MCP Server
+    │   ├── Custom stdio server
+    │   ├── Dynamic tool retrieval
+    │   ├── Resources and prompts
+    │   └── Modular LLM agent
     │
-    └── Part 2: SQL Agent
-        ├── SQLite Connection
-        ├── Custom SQL Tools
-        ├── SQL Agent Creation
-        └── Natural Language Querying
+    ├── Part 2: Time MCP Server
+    │   ├── Timezone configuration
+    │   ├── Time-specific tools
+    │   └── Time zone agent
+    │
+    ├── Part 3: Remote HTTP MCP Server
+    │   ├── HTTP streaming connection
+    │   ├── External API integration
+    │   └── Travel/Flight agent
+    │
+    └── Multi-server MCP agent
+        └── Combining local + distant servers
 
 # Data Files (Optional - Place in project root)
 ├── your_document.pdf                      # Your PDF for RAG (optional)
-└── Chinook.db                             # SQLite database for SQL Agent (optional)
+├── Chinook.db                             # SQLite database for SQL Agent (optional)
+└── resources/                             # Folder for MCP servers
+    └── mcp_local_server.py                # Custom MCP server (optional)
 ```
 
 ---
@@ -625,28 +712,55 @@ jupyter nbconvert --to pdf TP_Agents_Langchain.ipynb
 
 ### For Beginners:
 
-1. Start with `TP_Prompt_Engineering.ipynb`
+1. **Start with `TP_Prompt_Engineering.ipynb`**
    - Understand tokenization
    - Learn how LLMs work
    - Simple prompt examples
 
-2. Then move to `TP_Agents_Langchain.ipynb`
-   - Start with "Basic agent creation"
-   - Progress through system messages
-   - Try the "Personal Chef" exercise
+2. **Then move to `TP_Agents_Langchain.ipynb`**
+   - Basic agent creation
+   - System messages and few-shot learning
+   - Custom tools and the Personal Chef exercise
 
-3. Finally `TP_RAG_Agent.ipynb`
-   - Start with PDF RAG (Part 1)
-   - Understand vector stores and embeddings
-   - Then explore SQL agents (Part 2)
+3. **Next `TP_Agent_State_Context.ipynb`**
+   - Structured context classes
+   - Agent with context access
+   - Custom state management
+   - Persistent state with checkpointer
 
-### For Advanced:
+4. **Then `TP_RAG_Agent.ipynb`**
+   - PDF RAG (Part 1)
+   - Vector stores and embeddings
+   - SQL agents (Part 2)
 
-1. Combine all three notebooks
-2. Create custom agents with multiple tools
-3. Build hybrid RAG systems (PDF + SQL)
-4. Integrate with production databases
-5. Implement persistent vector stores (FAISS)
+5. **Intermediate `TP_MCP_Agent.ipynb`**
+   - Model Context Protocol basics
+   - Local MCP servers
+   - Remote MCP services
+
+6. **Advanced `TP_LangGraph_Studio.ipynb`**
+   - Visualization and debugging
+   - Production testing
+   - Agent monitoring
+
+### For Advanced Users:
+
+1. Integrate all 6 labs into a production system
+2. Create custom MCP servers for your domain
+3. Build hybrid systems: RAG + SQL + MCP + State management
+4. Implement advanced state patterns (multi-agent coordination)
+5. Deploy to production with LangGraph Studio
+6. Monitor and optimize agent performance
+
+### Recommended Project: Build Your Own Agent
+
+Combine all 6 labs to create:
+- ✅ A domain-specific agent (e.g., e-commerce, healthcare, support)
+- ✅ With structured context and state management
+- ✅ Integrating RAG or SQL data sources
+- ✅ Using MCP for external services
+- ✅ Tested and debugged in LangGraph Studio
+- ✅ Ready for production deployment
 
 ---
 
