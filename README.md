@@ -219,6 +219,15 @@ uv add \
     ipkernel \
     jupyter \
     notebook
+
+# For RAG labs (PDF, Embeddings, Vector Stores)
+uv add \
+    langchain-community \
+    langchain-text-splitters \
+    langchain-huggingface \
+    sentence-transformers \
+    pypdf \
+    faiss-cpu
 ```
 
 This creates `pyproject.toml` and `uv.lock` files automatically.
@@ -298,6 +307,50 @@ ollama run llama3.2:3b "Bonjour, comment ça va?"
 ```
 
 You should get a response in French.
+
+---
+
+## 📊 Download Chinook Database (for SQL Agent Lab)
+
+The SQL Agent lab uses the Chinook sample database. Here's how to get it:
+
+### Option 1: Direct Download (Recommended)
+
+```bash
+# macOS/Linux:
+curl -o Chinook.db https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite
+
+# Windows (PowerShell):
+Invoke-WebRequest -Uri "https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite" -OutFile "Chinook.db"
+```
+
+### Option 2: Manual Download
+
+1. Visit: https://github.com/lerocha/chinook-database
+2. Go to: `ChinookDatabase/DataSources/Chinook_Sqlite.sqlite`
+3. Click "Download raw file"
+4. Save as `Chinook.db` in your project folder
+
+### Option 3: Create Your Own SQLite Database
+
+```bash
+# Create an empty SQLite database
+sqlite3 my_database.db
+
+# Or use Python:
+python -c "import sqlite3; conn = sqlite3.connect('my_database.db'); conn.close()"
+```
+
+### Verify Database
+
+```bash
+# Check if Chinook.db exists
+ls -la Chinook.db      # macOS/Linux
+dir Chinook.db         # Windows
+
+# Check tables (optional)
+sqlite3 Chinook.db ".tables"
+```
 
 ---
 
@@ -448,15 +501,34 @@ langchainPrompt/
 │   ├── OpenAI LLMs
 │   └── Multi-modal LLMs
 │
-└── TP_Agents_Langchain.ipynb              # Lab 2: Agents with LangChain
-    ├── Setup & Troubleshooting
-    ├── Basic agents
-    ├── System messages & Few-shot learning
-    ├── Structured responses
-    ├── Custom tools
-    ├── Web search tools
-    ├── Memory management
-    └── Practical TP: Personal Chef Agent
+├── TP_Agents_Langchain.ipynb              # Lab 2: Agents with LangChain
+│   ├── Setup & Troubleshooting
+│   ├── Basic agents
+│   ├── System messages & Few-shot learning
+│   ├── Structured responses
+│   ├── Custom tools
+│   ├── Web search tools
+│   ├── Memory management
+│   └── Practical TP: Personal Chef Agent
+│
+└── TP_RAG_Agent.ipynb                     # Lab 3: RAG & SQL Agents
+    ├── Part 1: PDF RAG
+    │   ├── PDF Loading with PyPDFLoader
+    │   ├── Text Segmentation
+    │   ├── Embedding Generation
+    │   ├── Vector Store Indexing
+    │   ├── Semantic Search
+    │   └── RAG Agent Creation
+    │
+    └── Part 2: SQL Agent
+        ├── SQLite Connection
+        ├── Custom SQL Tools
+        ├── SQL Agent Creation
+        └── Natural Language Querying
+
+# Data Files (Optional - Place in project root)
+├── your_document.pdf                      # Your PDF for RAG (optional)
+└── Chinook.db                             # SQLite database for SQL Agent (optional)
 ```
 
 ---
@@ -563,12 +635,18 @@ jupyter nbconvert --to pdf TP_Agents_Langchain.ipynb
    - Progress through system messages
    - Try the "Personal Chef" exercise
 
+3. Finally `TP_RAG_Agent.ipynb`
+   - Start with PDF RAG (Part 1)
+   - Understand vector stores and embeddings
+   - Then explore SQL agents (Part 2)
+
 ### For Advanced:
 
-1. Combine both notebooks
-2. Create custom agents
-3. Build your own tools
-4. Integrate with web APIs
+1. Combine all three notebooks
+2. Create custom agents with multiple tools
+3. Build hybrid RAG systems (PDF + SQL)
+4. Integrate with production databases
+5. Implement persistent vector stores (FAISS)
 
 ---
 
