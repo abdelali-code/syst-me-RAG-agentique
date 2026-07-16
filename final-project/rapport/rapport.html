@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Rapport — Agentic RAG Juridique (Droit Marocain)</title>
+<style>
+  @page { size: A4; margin: 16mm 18mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.42;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  h1 {
+    font-size: 15pt;
+    margin: 0 0 2pt 0;
+    color: #0f2942;
+  }
+  .subtitle {
+    font-size: 9pt;
+    color: #555;
+    margin: 0 0 10pt 0;
+  }
+  h2 {
+    font-size: 11pt;
+    color: #0f2942;
+    border-bottom: 1.5pt solid #0f2942;
+    padding-bottom: 2pt;
+    margin: 12pt 0 5pt 0;
+  }
+  h3 {
+    font-size: 9.8pt;
+    color: #17456e;
+    margin: 8pt 0 3pt 0;
+  }
+  p { margin: 3pt 0; text-align: justify; }
+  ul, ol { margin: 3pt 0; padding-left: 15pt; }
+  li { margin: 1.5pt 0; text-align: justify; }
+  table { border-collapse: collapse; width: 100%; margin: 5pt 0; font-size: 8.8pt; }
+  th, td { border: 0.5pt solid #ccc; padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: #eef2f6; color: #0f2942; font-weight: 600; }
+  code {
+    background: #f2f4f6;
+    padding: 0 3pt;
+    border-radius: 2pt;
+    font-family: "Courier New", monospace;
+    font-size: 8.6pt;
+  }
+  .cols { display: flex; gap: 12pt; }
+  .col { flex: 1; }
+  .diagram {
+    background: #f7f9fb;
+    border: 0.5pt solid #ccc;
+    border-radius: 3pt;
+    padding: 6pt 8pt;
+    font-family: "Courier New", monospace;
+    font-size: 7.8pt;
+    white-space: pre;
+    line-height: 1.25;
+    margin: 5pt 0;
+  }
+  .note {
+    background: #fff8e6;
+    border-left: 2.5pt solid #d4a017;
+    padding: 4pt 7pt;
+    margin: 5pt 0;
+    font-size: 8.8pt;
+  }
+  .badge-ok { color: #1a7a3c; font-weight: 600; }
+  .badge-warn { color: #a8630a; font-weight: 600; }
+  .footer {
+    margin-top: 10pt;
+    font-size: 7.6pt;
+    color: #888;
+    text-align: center;
+  }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<h1>Agentic RAG Juridique — Droit Marocain</h1>
+<p class="subtitle">Rapport individuel — Master IIBDCC, module <em>Agentic RAG</em>, Prof. RETAL Sara — Abdelali Elouadi — 17 juillet 2026</p>
+
+<h2>1. Démarche suivie</h2>
+<p>
+L'objectif du projet est de construire un système RAG <strong>agentique</strong> — c'est-à-dire un agent qui décide
+lui-même quand et quels outils appeler, plutôt qu'un pipeline RAG figé (retrieve → generate) — capable de répondre à
+des questions de droit marocain (Code de la Famille / Moudawana, Code du Travail) en citant les articles exacts.
+La contrainte du sujet imposait de construire l'orchestration avec <strong>LangGraph</strong> à la main (pas de
+<code>create_agent</code>), afin de contrôler explicitement le graphe d'états, les transitions et la boucle de
+réflexion.
+</p>
+<p>
+La démarche a suivi quatre étapes : (1) constitution d'un corpus juridique (extraits authentiques des deux codes),
+(2) ingestion avec un découpage <em>article-aware</em> et vectorisation locale, (3) conception du graphe agentique
+(planificateur → outils → réflexion), (4) évaluation systématique sur 20 questions (10 simples / 10 complexes) pour
+mesurer temps de réponse et pertinence de récupération.
+</p>
+
+<h2>2. Fonctionnement du système</h2>
+
+<h3>2.1 Architecture du graphe LangGraph</h3>
+<div class="diagram">
+                 ┌──────────────┐
+   entrée ─────► │   planner    │  LLM lié aux 4 outils : répond directement
+                 └──────┬───────┘  ou émet un/des tool_calls
+                        │
+             tool_calls │ présents ──────────► ┌───────────┐
+                        │                       │   tools   │ exécute retrieval /
+                        │                       └─────┬─────┘ lookup / calcul
+                        │                             │
+                        │                    boucle bornée à 3 tours
+                        │                             │
+                        ▼ (pas de tool_calls)         ▼ (retour au planner)
+                 ┌──────────────┐
+                 │  reflection  │  LLM juge : la réponse cite-t-elle un article
+                 └──────┬───────┘  réellement récupéré ? est-elle non-inventée ?
+                        │
+        insuffisant (et rounds<3) │ suffisant (ou rounds==3)
+                        ▼                   ▼
+                (retour au planner)        FIN — réponse finale avec citations
+</div>
+<p>
+L'état (<code>AgentState</code>) porte l'historique complet des messages (nécessaire au pattern ReAct de LangGraph
+pour que le LLM voie les résultats d'outils), un compteur <code>retrieval_rounds</code> qui borne strictement la
+boucle planner⇄tools⇄reflection à 3 itérations, et un booléen <code>needs_more_retrieval</code> positionné par le
+nœud de réflexion. Un <code>MemorySaver</code> checkpointé par <code>thread_id</code> permet les questions de suivi
+dans une conversation (<code>python main.py chat</code>) sans renvoyer tout l'historique manuellement.
+</p>
+
+<h3>2.2 Prétraitement et vectorisation</h3>
+<p>
+Le chunking est <strong>article-aware</strong> : le texte est d'abord découpé sur les frontières
+<code>Article N</code> (regex), puis un <code>RecursiveCharacterTextSplitter</code> (1200 caractères, 150 de
+recouvrement) sert de filet de sécurité pour les articles trop longs. Cette approche évite qu'un chunk coupe un
+article en deux, ce qui nuirait gravement à la pertinence juridique. Les embeddings sont calculés localement avec
+<code>intfloat/multilingual-e5-base</code> (768 dimensions, <code>sentence-transformers</code>), car l'API xAI
+Grok n'expose pas d'endpoint d'embeddings public. Le résultat (70 chunks à partir des 2 textes source) est persisté
+dans <strong>DuckDB</strong> (fichier unique <code>data/processed/legal.duckdb</code>) : la similarité utilise la
+fonction native <code>array_cosine_distance</code> (aucune extension réseau requise), et comme <code>law</code> /
+<code>article</code> sont de vraies colonnes SQL, la recherche exacte par numéro d'article devient un
+<em>lookup indexé</em> plutôt qu'une recherche vectorielle approximative.
+</p>
+
+<h3>2.3 Outils de l'agent</h3>
+<table>
+<tr><th>Outil</th><th>Rôle</th></tr>
+<tr><td><code>retrieve_legal_context(query, k)</code></td><td>Recherche sémantique (cosine) dans le corpus vectorisé — outil principal du RAG.</td></tr>
+<tr><td><code>get_article_by_number(law, article_number)</code></td><td>Lookup SQL exact quand un numéro d'article est cité explicitement (plus fiable qu'une recherche sémantique sur "article 53").</td></tr>
+<tr><td><code>calculate_legal_deadline(start_date, days, weeks, months)</code></td><td>Calcul déterministe de délais légaux (préavis, congés, recours) — évite les erreurs arithmétiques du LLM.</td></tr>
+<tr><td><code>list_available_codes()</code></td><td>Introspection de la base pour gérer proprement les questions hors périmètre.</td></tr>
+</table>
+<p>
+Le planificateur (température 0.3) décide, via <em>tool calling</em> natif OpenAI-compatible, quel(s) outil(s)
+appeler selon un prompt système qui impose la citation systématique des articles et interdit de répondre "de
+mémoire" sur un point juridique précis. Le nœud de génération finale utilise une température plus basse (0.0) pour
+rester ancré dans le contexte récupéré.
+</p>
+
+<h3>2.4 Choix du LLM</h3>
+<p>
+Le système est conçu pour être <strong>agnostique au fournisseur</strong> : <code>src/llm.py</code> instancie un
+<code>ChatOpenAI</code> pointé vers n'importe quelle API compatible OpenAI via trois variables d'environnement
+(<code>XAI_BASE_URL</code>, <code>XAI_MODEL</code>, <code>XAI_API_KEY</code>). Le choix initial était
+<strong>xAI Grok</strong> (<code>grok-4-fast</code>, <code>api.x.ai/v1</code>) ; l'évaluation ci-dessous a été
+exécutée avec <strong>Groq</strong> (<code>llama-3.3-70b-versatile</code>, <code>api.groq.com/openai/v1</code>) à
+la suite d'une limitation de crédits sur le compte xAI — aucune modification de code n'a été nécessaire pour ce
+changement, ce qui valide le choix d'architecture.
+</p>
+
+<h2>3. Résultats de l'évaluation</h2>
+<p>
+Exécution complète de <code>evaluation/eval_questions.py</code> sur 10 questions simples (un seul article/hop) et
+10 questions complexes (multi-articles, comparaison entre les deux codes, ou calcul de délai). Métriques
+mesurées : temps de réponse total, nombre d'appels d'outils, temps et nombre de chunks de récupération.
+</p>
+
+<table>
+<tr><th>Catégorie</th><th>Réussite</th><th>Temps moyen (succès)</th><th>Appels d'outils moyens</th><th>Temps de récupération moyen</th></tr>
+<tr><td>Simples</td><td class="badge-ok">10 / 10 (100 %)</td><td>24,5 s</td><td>1,6</td><td>2,3 s*</td></tr>
+<tr><td>Complexes</td><td class="badge-warn">3 / 10 (30 %)</td><td>46,4 s</td><td>3,0</td><td>1,0 s</td></tr>
+</table>
+<p style="font-size:7.8pt;color:#666;">* incluant le chargement à froid du modèle d'embedding (~14 s) sur la toute première requête ; hors ce cas, ~0,95 s en moyenne.</p>
+
+<div class="note">
+<strong>Limitation observée :</strong> 7 des 10 questions complexes ont échoué avec une erreur <code>429</code> —
+quota journalier de tokens (Groq, palier gratuit : 100 000 tokens/jour) épuisé en cours d'exécution, et non un
+échec du système. Les 3 questions complexes qui ont abouti avant l'épuisement du quota ont toutes produit des
+réponses correctement sourcées (ex. calcul exact de l'indemnité de licenciement à 12 ans d'ancienneté selon
+l'article 53, formule 96/144/192/240 h par palier). Ceci illustre une contrainte réelle d'exploitation des API LLM
+gratuites plutôt qu'une limite de conception du graphe.
+</div>
+
+<p>
+<strong>Pertinence de la récupération :</strong> pour les questions testées manuellement (score de similarité
+cosinus rapporté par <code>retrieve_legal_context</code>), les meilleurs résultats se situent systématiquement
+entre 0,84 et 0,87 — l'article réellement pertinent apparaît en tête dans tous les cas observés. Le modèle
+multilingue généraliste couvre donc correctement le vocabulaire juridique français du corpus.
+</p>
+<p>
+<strong>Comportement agentique observé :</strong> le nombre d'appels d'outils passe de 1,6 en moyenne (simple) à
+3,0 (complexe), ce qui confirme que le planificateur décompose effectivement les questions multi-volets en
+plusieurs recherches ciblées plutôt que d'exécuter un seul <code>retrieve</code> générique — comportement attendu
+d'un système agentique par opposition à un RAG à pipeline fixe.
+</p>
+
+<div class="page-break"></div>
+
+<h2>4. Limites connues</h2>
+<ul>
+<li><strong>Corpus partiel :</strong> environ 70 chunks / ~35 articles par code sont indexés, contre 400+ / 589
+articles dans les textes intégraux — le corpus couvre des extraits représentatifs, pas l'intégralité des deux
+codes.</li>
+<li><strong>Embeddings génériques :</strong> <code>multilingual-e5-base</code> n'est pas fine-tuné sur le
+vocabulaire juridique marocain spécifiquement (bon comportement observé malgré tout, cf. §3).</li>
+<li><strong>Réflexion binaire :</strong> le nœud <code>reflection</code> est un classifieur LLM
+SUFFISANT/INSUFFISANT, pas une métrique formelle type RAGAS / faithfulness score.</li>
+<li><strong>Dépendance à un tiers pour l'évaluation :</strong> les paliers gratuits des API LLM (Groq, xAI)
+imposent des quotas qui ont interrompu 70 % des questions complexes lors de cette campagne — un ré-essai après
+réinitialisation du quota (fenêtre glissante ~15-30 min) confirme que le système lui-même fonctionne correctement
+sur ces questions.</li>
+<li><strong>Pas de support de l'arabe :</strong> corpus et prompts sont en français uniquement, alors que les
+textes de loi marocains font référence en arabe.</li>
+<li><strong>Recherche vectorielle brute :</strong> à cette échelle (70 chunks), un balayage cosinus complet est
+instantané ; sur un corpus complet (589 articles), l'index HNSW (extension VSS DuckDB, déjà activé si disponible)
+deviendrait nécessaire pour rester performant.</li>
+</ul>
+
+<h2>5. Pistes d'amélioration</h2>
+<ul>
+<li>Indexer le texte intégral des deux codes (voire Code Pénal, Code des Obligations et Contrats, Constitution)
+pour couvrir un périmètre juridique réaliste.</li>
+<li>Remplacer le classifieur de réflexion binaire par une métrique de <em>faithfulness</em> structurée (ex.
+RAGAS), avec un score continu plutôt qu'un verdict SUFFISANT/INSUFFISANT.</li>
+<li>Ajouter un outil de recherche web (Tavily, déjà prévu dans <code>.env.example</code> mais non branché) comme
+repli explicite pour les questions hors périmètre du corpus, avec avertissement clair à l'utilisateur.</li>
+<li>Fine-tuner ou évaluer des embeddings juridiques spécialisés (ou multilingues français/arabe) pour améliorer la
+pertinence sur du vocabulaire technique rare.</li>
+<li>Ajouter une gestion de repli/retry automatique en cas de <code>429</code> (backoff exponentiel, ou bascule
+vers un second provider configuré), pour fiabiliser les campagnes d'évaluation automatisées.</li>
+</ul>
+
+<div class="footer">
+Code complet, README d'installation et résultats bruts d'évaluation (JSON + Markdown) disponibles sur le dépôt GitHub du projet.
+</div>
+
+</body>
+</html>
