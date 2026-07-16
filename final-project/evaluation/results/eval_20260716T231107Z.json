@@ -1,0 +1,202 @@
+[
+  {
+    "category": "simple",
+    "question": "Quel est l'âge légal du mariage au Maroc ?",
+    "answer": "[Source: code_famille_moudawana.txt | Article None | pertinence=0.85]\nCODE DE LA FAMILLE — LA MOUDAWANA\nDahir n° 1-04-22 du 12 hija 1424 (3 février 2004) portant promulgation de la loi n° 70-03 portant Code de la Famille\n(Bulletin Officiel n° 5358 du 2 ramadan 1426 (6 octobre 2005), p. 667)\nSource: traduction officielle française, Ministère de la Justice du Royaume du Maroc\n\nLOI N° 70-03 PORTANT CODE DE LA FAMILLE\n\nCHAPITRE PRELIMINAIRE - DISPOSITIONS GENERALES\n\n---\n\n[Source: code_famille_moudawana.txt | Article 13 | pertinence=0.85]\nArticle 13\nLa conclusion du mariage est subordonnée aux conditions suivantes :\n1) la capacité de l'époux et de l'épouse ;\n2) la non entente sur la suppression du Sadaq (la dot) ;\n3) la présence du tuteur matrimonial (Wali), dans le cas où celui-ci est requis par le présent Code ;\n4) le constat par les deux adoul du consentement des deux époux et sa consignation ;\n5) l'absence d'empêchements légaux.\n\nTITRE II - DE LA CAPACITE, DE LA TUTELLE MATRIMONIALE ET DU SADAQ (LA DOT)\n\n---\n\n[Source: code_famille_moudawana.txt | Article 20 | pertinence=0.85]\nArticle 20\nLe juge de la famille chargé du mariage peut autoriser le mariage du garçon et de la fille avant l'âge de la capacité matrimoniale prévu à l'article 19 ci-dessus, par décision motivée précisant l'intérêt et les motifs justifiant ce mariage. Il aura entendu, au préalable, les parents du mineur ou son représentant légal. De même, il aura fait procéder à une expertise médicale ou à une enquête sociale. La décision du juge autorisant le mariage d'un mineur n'est susceptible d'aucun recours.\n\n---\n\n[Source: code_famille_moudawana.txt | Article 25 | pertinence=0.84]\nArticle 25\nLa femme majeure peut contracter elle-même son mariage ou déléguer à cet effet son père ou l'un de ses proches.\n\nCHAPITRE II - DU SADAQ (LA DOT)\n\n---\n\n[Source: code_famille_moudawana.txt | Article 175 | pertinence=0.84]\nArticle 175\nLe mariage de la mère chargée de la garde de son enfant n'entraîne pas la déchéance de son droit de garde, dans les cas suivants :\n1) si l'enfant n'a pas dépassé l'âge de sept ans ou si sa séparation de sa mère lui cause un préjudice ;\n2) si l'enfant soumis à la garde est atteint d'une maladie ou d'un handicap rendant sa garde difficile à assumer par une personne autre que sa mère ;\n3) si le nouvel époux est un parent de l'enfant avec lequel il a un empêchement à mariage ou s'il est son représentant légal ;\n4) si elle est la représentante légale de l'enfant.\n\nTITRE III - DE LA PENSION ALIMENTAIRE (NAFAQA)",
+    "error": null,
+    "response_time_s": 46.809,
+    "n_tool_calls": 3,
+    "retrieval_time_s": 14.219,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Combien de temps dure le congé de maternité selon le Code du Travail ?",
+    "answer": "La durée du congé de maternité est de 14 semaines selon l'article 152 du Code du Travail.",
+    "error": null,
+    "response_time_s": 20.032,
+    "n_tool_calls": 2,
+    "retrieval_time_s": 0.77,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Quelle est la durée légale du travail par semaine dans les activités non agricoles ?",
+    "answer": "Selon l'article 184 du Code du Travail, la durée légale du travail par semaine dans les activités non agricoles est fixée à 44 heures par semaine.",
+    "error": null,
+    "response_time_s": 17.031,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 0.888,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "A qui la garde de l'enfant (hadana) est-elle confiée en premier lieu ?",
+    "answer": "La garde de l'enfant (hadana) est confiée en premier lieu à la mère, puis au père et enfin à la grand-mère maternelle de l'enfant, selon l'article 171 du Code de la Famille.",
+    "error": null,
+    "response_time_s": 34.195,
+    "n_tool_calls": 2,
+    "retrieval_time_s": 0.93,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Quel est l'âge de la majorité légale au Maroc ?",
+    "answer": "L'âge de la majorité légale au Maroc est fixé à 18 ans révolus, selon l'article 209 du Code de la Famille (Moudawana).",
+    "error": null,
+    "response_time_s": 19.318,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 0.994,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Qu'est-ce que le Sadaq dans le Code de la Famille ?",
+    "answer": "Le Sadaq dans le Code de la Famille est défini comme étant tout bien donné par l'époux à son épouse, impliquant de sa part la ferme volonté de créer un foyer et de vivre dans les liens d'une affection mutuelle. Il est précisé que le fondement légal du Sadaq consiste en sa valeur morale et symbolique et non en sa valeur matérielle. Selon l'article 32 du Code de la Famille, l'intégralité du Sadaq est acquise à l'épouse en cas de consommation du mariage ou de décès de l'époux avant cette consommation. En cas de divorce sous contrôle judiciaire avant la consommation du mariage, l'épouse a droit à la moitié du Sadaq fixé.",
+    "error": null,
+    "response_time_s": 20.164,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 0.995,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Combien de jours de congé annuel payé un salarié acquiert-il par mois de service ?",
+    "answer": "Selon l'article 231 du Code du Travail, un salarié acquiert 1,5 jours de congé annuel payé par mois de service, sans que la durée totale ne dépasse 30 jours.",
+    "error": null,
+    "response_time_s": 23.357,
+    "n_tool_calls": 3,
+    "retrieval_time_s": 0.913,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Quelle est la durée de la période d'essai pour un cadre en CDI ?",
+    "answer": "La durée de la période d'essai pour un cadre en CDI est de trois mois, selon l'article 14 du Code du Travail. Cette période peut être renouvelée une seule fois.",
+    "error": null,
+    "response_time_s": 18.978,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 1.175,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "Qu'est-ce qu'une faute grave pouvant justifier un licenciement selon le Code du Travail ?",
+    "answer": "Selon l'article 39 du Code du Travail, les fautes graves pouvant justifier un licenciement incluent notamment : le délit portant atteinte à l'honneur, à la confiance ou aux bonnes moeurs ayant donné lieu à un jugement définitif privatif de liberté ; la divulgation d'un secret professionnel ayant causé un préjudice à l'entreprise ; le vol, l'abus de confiance, l'ivresse publique, la consommation de stupéfiants, l'agression corporelle, l'insulte grave, commis à l'intérieur de l'établissement ou pendant le travail ; le refus délibéré et injustifié du salarié d'exécuter un travail de sa compétence ; l'absence non justifiée du salarié pour plus de quatre jours ou de huit demi-journées pendant une période de douze mois ; la détérioration grave des équipements causée délibérément ou par négligence grave ; l'inobservation des instructions de sécurité ayant causé un dommage considérable ; toute forme de violence ou d'agression dirigée contre un salarié, l'employeur ou son représentant.",
+    "error": null,
+    "response_time_s": 24.559,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 0.97,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "simple",
+    "question": "A partir de quel âge un enfant peut-il choisir lequel de ses parents assurera sa garde ?",
+    "answer": "Un enfant peut choisir lequel de ses parents assurera sa garde à partir de l'âge de 15 ans révolus, selon l'article 166 du Code de la Famille (Moudawana).",
+    "error": null,
+    "response_time_s": 20.663,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 0.931,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Un salarié en CDI avec 12 ans d'ancienneté est licencié : quelle formule s'applique pour calculer son indemnité de licenciement, et à combien d'heures de salaire a-t-il droit ?",
+    "answer": "Selon l'article 53 du Code du Travail, le montant de l'indemnité de licenciement pour chaque année ou fraction d'année de travail effectif est égal à : 96 heures de salaire pour les cinq premières années d'ancienneté ; 144 heures de salaire pour la période d'ancienneté allant de 6 à 10 ans ; 192 heures de salaire pour la période d'ancienneté allant de 11 à 15 ans ; 240 heures de salaire pour la période d'ancienneté dépassant 15 ans. \n\nPour un salarié avec 12 ans d'ancienneté, l'indemnité de licenciement serait calculée comme suit : \n\n- 5 ans * 96 heures/an = 480 heures \n- 5 ans * 144 heures/an = 720 heures \n- 2 ans * 192 heures/an = 384 heures \n\nL'indemnité totale serait donc de 480 + 720 + 384 = 1584 heures de salaire. \n\nCependant, il est important de noter que ces calculs sont basés sur les informations fournies et pourraient nécessiter des ajustements en fonction des spécificités du cas et de l'application des dispositions légales pertinentes. Il est toujours recommandé de consulter un expert juridique pour obtenir des conseils précis et adaptés à la situation spécifique.",
+    "error": null,
+    "response_time_s": 38.018,
+    "n_tool_calls": 4,
+    "retrieval_time_s": 1.017,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Quelles sont les conditions cumulatives pour qu'un tribunal autorise la polygamie, et quels recours a la première épouse si elle refuse ?",
+    "answer": "Selon l'article 40 du Code de la Famille (Moudawana), la polygamie est interdite lorsqu'une injustice est à craindre envers les épouses. Elle est également interdite lorsqu'il existe une condition de l'épouse en vertu de laquelle l'époux s'engage à ne pas lui adjoindre une autre épouse. \n\nEn cas de refus de la première épouse, elle peut contester la décision du tribunal et demander l'annulation du mariage. Elle peut également demander une compensation financière et des droits de garde des enfants, selon les dispositions du Code de la Famille (Moudawana). \n\nIl est important de noter que les conditions cumulatives pour qu'un tribunal autorise la polygamie incluent la justification objective et le caractère exceptionnel de la demande, ainsi que la capacité financière de l'époux à pourvoir aux besoins des deux foyers. \n\nEn résumé, la première épouse peut refuser la polygamie si elle craint une injustice envers elle ou si elle a une condition dans son contrat de mariage qui interdit à son époux de prendre une autre épouse. Elle peut contester la décision du tribunal et demander des droits et des compensations en vertu du Code de la Famille (Moudawana).",
+    "error": null,
+    "response_time_s": 21.014,
+    "n_tool_calls": 1,
+    "retrieval_time_s": 0.98,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Une salariée est en état de grossesse : quelles protections a-t-elle à la fois sur la rupture de son contrat de travail et sur la durée de son congé, et que se passe-t-il si son état pathologique nécessite une prolongation ?",
+    "answer": "[Source: code_travail.txt | Article 152 | pertinence=0.87]\nArticle 152\nLa salariée en état de grossesse attesté par certificat médical dispose d'un congé de maternité de quatorze semaines.\n\n---\n\n[Source: code_travail.txt | Article 161 | pertinence=0.86]\nArticle 161\nPendant une période de douze mois courant à compter de la date de la reprise du travail après l'accouchement, la mère salariée a droit quotidiennement, pour allaiter son enfant durant les heures de travail, à un repos spécial rémunéré comme temps de travail d'une demi-heure le matin et d'une demi-heure l'après-midi.\n\nTITRE III - DE LA DUREE DU TRAVAIL\n\n---\n\n[Source: code_travail.txt | Article 43 | pertinence=0.85]\nArticle 43\nLa rupture unilatérale du contrat de travail à durée indéterminée est subordonnée, en l'absence de faute grave de l'autre partie, au respect du délai de préavis.\n\nSection IV - De l'indemnité de licenciement\n\n---\n\n[Source: code_travail.txt | Article 13 | pertinence=0.85]\nArticle 13\nLa période d'essai est la période pendant laquelle chacune des parties peut rompre volontairement le contrat de travail sans préavis ni indemnité. Toutefois, après au moins une semaine de travail, la rupture de la période d'essai non motivée par la faute grave du salarié ne peut avoir lieu qu'en donnant l'un des délais de préavis suivants : deux jours avant la rupture s'il est payé à la journée, à la semaine ou à la quinzaine ; huit jours avant la rupture s'il est payé au mois.\n\n---\n\n[Source: code_travail.txt | Article 32 | pertinence=0.85]\nArticle 32\nLe contrat est provisoirement suspendu : pendant la durée de service militaire obligatoire ; pendant l'absence du salarié pour maladie ou accident dûment constaté par un médecin ; pendant la période qui précède et suit l'accouchement ; pendant la période d'incapacité temporaire du salarié résultant d'un accident du travail ou d'une maladie professionnelle ; pendant la durée de la grève ; pendant la fermeture provisoire de l'entreprise intervenue légalement.\n\nSection II - Des modes de cessation du contrat de travail",
+    "error": null,
+    "response_time_s": 80.201,
+    "n_tool_calls": 4,
+    "retrieval_time_s": 0.979,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Comparez les motifs de divorce judiciaire ouverts à l'épouse selon la Moudawana avec les motifs de licenciement pour faute grave dans le Code du Travail : quels points communs de procédure (droit d'être entendu, délais) apparaissent dans les deux textes ?",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 98105, Requested 2837. Please try again in 13m33.887999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 22.678,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 0.984,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Si un salarié reçoit sa décision de licenciement le 1er mars 2025, jusqu'à quelle date dispose-t-il pour saisir le tribunal, et que se passe-t-il s'il dépasse ce délai ?",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99424, Requested 2362. Please try again in 25m43.104s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 8.41,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 1.024,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Quelles sont les différences entre le divorce par consentement mutuel, le divorce judiciaire et le divorce par Khol' dans la Moudawana, en particulier sur qui doit prouver quoi ?",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99423, Requested 1579. Please try again in 14m25.728s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 0.247,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 0.853,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Un employeur veut licencier 15 salariés pour motifs économiques : quelle est la procédure complète à suivre, y compris les délais et les autorités impliquées ?",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99421, Requested 1562. Please try again in 14m9.312s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 0.194,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 0.859,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Quels critères le tribunal prend-il en compte pour attribuer la garde d'un enfant en cas de désaccord des parents, et cette attribution peut-elle changer si la mère se remarie ?",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99420, Requested 1578. Please try again in 14m22.271999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 0.16,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 0.973,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Un contrat de travail à durée déterminée est rompu avant son terme sans faute grave : quelles sont les conséquences financières pour la partie responsable, et cela diffère-t-il d'un CDI ?",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99419, Requested 1397. Please try again in 11m45.024s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 0.247,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 0.948,
+    "n_chunks_retrieved": 5
+  },
+  {
+    "category": "complexe",
+    "question": "Expliquez la chaîne de protection d'une salariée enceinte, de l'annonce de sa grossesse jusqu'à la fin de la période d'allaitement, en citant les articles concernés à chaque étape.",
+    "answer": null,
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kxerpv9ker6b84hnnfn3nr66` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99417, Requested 1585. Please try again in 14m25.728s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+    "response_time_s": 0.252,
+    "n_tool_calls": 0,
+    "retrieval_time_s": 1.016,
+    "n_chunks_retrieved": 5
+  }
+]

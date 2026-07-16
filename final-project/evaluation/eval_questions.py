@@ -14,10 +14,13 @@ Run:
 Outputs a Markdown table + raw JSON to evaluation/results/.
 """
 import json
+import sys
 import time
 import uuid
 from pathlib import Path
 from datetime import datetime, timezone
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.graph import build_graph, run_query
 from src.tools import retrieve_legal_context

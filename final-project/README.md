@@ -66,7 +66,7 @@ agentic-rag-legal/
 
 ```bash
 # 1. Se placer dans le dossier du projet
-cd agentic-rag-legal
+cd final-project
 
 # 2. Créer un environnement virtuel
 python3 -m venv venv
@@ -88,6 +88,17 @@ cp .env.example .env
 ⚠️ Pense à réactiver l'environnement virtuel (`source venv/bin/activate`) à chaque
 nouvelle session de terminal avant de lancer `python main.py ...`. Pour en sortir :
 `deactivate`.
+
+⚠️ **Pas de GPU / peu d'espace disque ?** `sentence-transformers` installe PyTorch
+avec le support CUDA par défaut (~2 Go de libs NVIDIA inutiles sans GPU), ce qui
+peut saturer `/tmp` sur certaines machines. Si `pip install -r requirements.txt`
+échoue avec `OSError: [Errno 28] No space left on device`, installe d'abord la
+version CPU de PyTorch, puis relance :
+
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
+```
 
 ## Utilisation
 
