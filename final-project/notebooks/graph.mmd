@@ -1,0 +1,18 @@
+graph TD;
+	__start__([start]):::first
+	planner(planner<br/>LLM + tool binding)
+	tools(tools<br/>retrieve / lookup / calc deadline)
+	after_tools(after_tools<br/>increment round counter)
+	reflection(reflection<br/>self-check groundedness)
+	__end__([end]):::last
+	__start__ --> planner;
+	planner -. tool_calls .-> tools;
+	planner -. no tool_calls .-> reflection;
+	tools --> after_tools;
+	after_tools -. rounds < max .-> planner;
+	after_tools -. rounds >= max .-> reflection;
+	reflection -. insuffisant .-> planner;
+	reflection -. suffisant .-> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
