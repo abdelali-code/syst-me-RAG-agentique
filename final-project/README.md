@@ -7,6 +7,15 @@ d'une base documentaire vectorisée.
 Projet réalisé dans le cadre de l'évaluation de fin de module *Agentic RAG* — Master IIBDCC,
 Prof. RETAL Sara.
 
+## Démo vidéo
+
+[![Vidéo de démonstration](https://img.shields.io/badge/▶-Voir%20la%20vidéo%20de%20démo-blue?style=for-the-badge)](rapport/demo.mkv)
+
+Vidéo de démonstration du système (CLI et client Flutter) : [`rapport/demo.mkv`](rapport/demo.mkv)
+(suivie via [Git LFS](https://git-lfs.com/)). GitHub affiche généralement un lecteur intégré quand
+on ouvre le fichier directement sur le dépôt ; sinon, téléchargez-le et ouvrez-le avec n'importe
+quel lecteur vidéo (VLC, mpv...).
+
 ## Architecture
 
 ```
@@ -52,12 +61,17 @@ agentic-rag-legal/
 │   ├── ingest.py             # chargement, chunking article-aware, vectorisation
 │   ├── llm.py                # wrapper Grok (xAI)
 │   ├── tools.py              # 4 outils de l'agent (requêtes SQL/vectorielles sur DuckDB)
-│   └── graph.py              # graphe LangGraph (state, nodes, edges, mémoire)
+│   ├── graph.py              # graphe LangGraph (state, nodes, edges, mémoire)
+│   └── api.py                # API FastAPI (/health, /codes, /chat, /eval/questions) pour l'app Flutter
 ├── evaluation/
 │   └── eval_questions.py     # 10 questions simples + 10 complexes, mesure temps/pertinence
 ├── notebooks/
 │   └── graph.mmd             # visualisation du graphe
-├── main.py                   # CLI (ingest / ask / chat)
+├── rapport/
+│   ├── rapport.html / .pdf   # rapport individuel (démarche, architecture, résultats, limites)
+│   └── demo.mkv              # vidéo de démonstration (suivie via Git LFS)
+├── app/                      # client Flutter (chat + écran d'évaluation)
+├── main.py                   # CLI (ingest / ask / chat / serve)
 ├── requirements.txt
 └── .env.example
 ```
@@ -112,9 +126,65 @@ python main.py ask "Quelle est la durée du congé de maternité au Maroc ?"
 # 3. Mode conversationnel (avec mémoire)
 python main.py chat
 
-# 4. Lancer l'évaluation complète (20 questions)
+# 4. Lancer l'évaluation complète (20 questions) en ligne de commande
 python evaluation/eval_questions.py
 ```
+
+## Application Flutter (client de chat + écran d'évaluation)
+
+Un client Flutter (`app/`) permet de discuter avec l'agent depuis une interface graphique
+(web ou bureau Linux), et inclut un écran dédié pour rejouer les questions de
+`evaluation/eval_questions.py` une par une, avec choix de la catégorie.
+
+### 1. Démarrer le serveur API
+
+Le client Flutter parle à une API FastAPI qui expose le graphe LangGraph existant.
+
+```bash
+cd final-project
+source venv/bin/activate
+python main.py serve
+```
+
+Cela lance le serveur sur `http://127.0.0.1:8000`. Laissez ce terminal ouvert.
+
+Endpoints exposés :
+| Méthode | Route | Description |
+|---|---|---|
+| GET | `/health` | Vérification de disponibilité |
+| GET | `/codes` | Liste des codes juridiques indexés |
+| POST | `/chat` | `{"question": str, "thread_id": str}` → `{"answer", "thread_id", "sources"}` |
+| GET | `/eval/questions` | Les 10 questions simples + 10 complexes de `evaluation/eval_questions.py` |
+
+### 2. Lancer l'application Flutter
+
+Dans un second terminal (le prérequis est d'avoir le [SDK Flutter](https://docs.flutter.dev/get-started/install) installé) :
+
+```bash
+cd final-project/app
+flutter pub get
+flutter run -d linux    # application de bureau Linux
+# ou
+flutter run -d chrome   # dans le navigateur
+```
+
+L'URL du backend est configurée dans `app/lib/config.dart` (`kApiBaseUrl`, par défaut
+`http://127.0.0.1:8000`) — à modifier si le serveur tourne ailleurs qu'en local.
+
+### 3. Utiliser l'app
+
+- **Écran de chat** : posez une question, la réponse s'affiche avec les articles/codes cités
+  sous forme de badges ("sources"). La conversation garde la mémoire (même `thread_id`) tant que
+  l'application reste ouverte.
+- **Écran d'évaluation** (icône ✅ dans la barre du haut) : permet de rejouer automatiquement le
+  jeu de questions de `evaluation/eval_questions.py` directement depuis l'app, sans ligne de
+  commande :
+  1. Choisissez la catégorie : **simple**, **complexe**, ou **toutes**.
+  2. Choisissez le nombre de questions (3, 5, ou toutes) pour limiter la durée du test.
+  3. Cliquez sur **Lancer** : les questions sont envoyées une par une à l'API, et chaque
+     question/réponse (avec sources et temps de réponse) s'affiche au fur et à mesure — pas
+     besoin d'attendre la fin de tout le lot pour voir les premiers résultats.
+  4. **Arrêter** interrompt l'exécution après la question en cours.
 
 ## Base documentaire
 

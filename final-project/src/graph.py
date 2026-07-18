@@ -84,8 +84,14 @@ class AgentState(TypedDict):
 
 def planner_node(state: AgentState) -> dict:
     """The core reasoning node: an LLM bound to tools. It decides whether to
-    call a tool (retrieval, article lookup, deadline calc) or answer directly."""
-    llm = get_planner_llm().bind_tools(ALL_TOOLS)
+    call a tool (retrieval, article lookup, deadline calc) or answer directly.
+
+    Once MAX_RETRIEVAL_ROUNDS is reached, tools are no longer bound so the
+    LLM is forced to synthesize a final text answer from whatever context
+    was already retrieved, instead of emitting another (unroutable) tool call."""
+    llm = get_planner_llm()
+    if state.get("retrieval_rounds", 0) < MAX_RETRIEVAL_ROUNDS:
+        llm = llm.bind_tools(ALL_TOOLS)
     messages = state["messages"]
     if not messages or not isinstance(messages[0], SystemMessage):
         messages = [SystemMessage(content=SYSTEM_PROMPT)] + list(messages)
@@ -109,8 +115,9 @@ def after_tools_node(state: AgentState) -> dict:
 
 
 def route_after_tools(state: AgentState) -> str:
-    if state.get("retrieval_rounds", 0) >= MAX_RETRIEVAL_ROUNDS:
-        return "reflection"
+    # Always return to the planner so it can synthesize a final text answer
+    # (once the round cap is hit, planner_node stops binding tools, so this
+    # can't loop forever).
     return "planner"
 
 

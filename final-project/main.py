@@ -5,6 +5,7 @@ Usage:
     python main.py ingest                # build the vector store from data/raw/
     python main.py chat                  # interactive chat loop
     python main.py ask "votre question"  # single question, one-shot
+    python main.py serve                 # start the HTTP API for the Flutter app
 """
 import sys
 import uuid
@@ -22,6 +23,11 @@ def cmd_ask(question: str):
     result = run_query(app, question, thread_id=str(uuid.uuid4()))
     print("\n=== RÉPONSE ===")
     print(result["messages"][-1].content)
+
+
+def cmd_serve():
+    import uvicorn
+    uvicorn.run("src.api:app", host="127.0.0.1", port=8000, reload=True)
 
 
 def cmd_chat():
@@ -53,6 +59,8 @@ if __name__ == "__main__":
         cmd_ask(" ".join(sys.argv[2:]))
     elif command == "chat":
         cmd_chat()
+    elif command == "serve":
+        cmd_serve()
     else:
         print(__doc__)
         sys.exit(1)
